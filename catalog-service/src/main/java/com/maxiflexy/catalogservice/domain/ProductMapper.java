@@ -1,8 +1,8 @@
 package com.maxiflexy.catalogservice.domain;
 
-class ProductMapper {
+public class ProductMapper {
 
-    static ProductDTO toProductDTO(ProductEntity productEntity){
+    public static ProductDTO toProductDTO(ProductEntity productEntity){
         return new ProductDTO(
                 productEntity.getCode(),
                 productEntity.getName(),

@@ -11,11 +11,15 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
     private final ApplicationProperties properties;
+
+    public ProductService(ProductRepository productRepository, ApplicationProperties properties) {
+        this.productRepository = productRepository;
+        this.properties = properties;
+    }
 
     public PagedResult<ProductDTO> getProducts(int pageNo){
         pageNo = pageNo <= 1 ? 0 : pageNo - 1;

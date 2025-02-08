@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/products")
-@RequiredArgsConstructor
 class ProductController {
 
     private final ProductService productService;
+
+    ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping
     PagedResult<ProductDTO> getProducts(@RequestParam(name = "page", defaultValue = "1") int pageNo){
