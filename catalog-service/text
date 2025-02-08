@@ -1,0 +1,1 @@
+to run spring command to build docker image :  ./mvnw spring-boot:build-image -DskipTests
