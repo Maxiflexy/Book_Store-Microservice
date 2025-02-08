@@ -33,14 +33,14 @@ public class ProductService {
                 .map(ProductMapper::toProductDTO);
 
         return new PagedResult<>(
-                productsPage.getContent(),
                 productsPage.getTotalElements(),
                 productsPage.getNumber() + 1,
                 productsPage.getTotalPages(),
                 productsPage.isFirst(),
                 productsPage.isLast(),
                 productsPage.hasNext(),
-                productsPage.hasPrevious()
+                productsPage.hasPrevious(),
+                productsPage.getContent()
         );
     }
 
