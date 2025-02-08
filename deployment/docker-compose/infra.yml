@@ -1,4 +1,3 @@
-version: "3.8"
 name: 'book-store-application'
 services:
   catalog-db:
@@ -23,6 +22,10 @@ services:
           memory: 500m
 
 
-
 volumes:
   book-store-ms:
+
+networks:
+  book-store-network:
+    name: book-store-network
+    driver: bridge
