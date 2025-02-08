@@ -4,14 +4,15 @@ import com.maxiflexy.catalogservice.domain.PagedResult;
 import com.maxiflexy.catalogservice.domain.ProductDTO;
 import com.maxiflexy.catalogservice.domain.ProductEntity;
 import com.maxiflexy.catalogservice.domain.ProductService;
+import com.maxiflexy.catalogservice.web.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/products")
+@Slf4j
 class ProductController {
 
     private final ProductService productService;
@@ -23,5 +24,14 @@ class ProductController {
     @GetMapping
     PagedResult<ProductDTO> getProducts(@RequestParam(name = "page", defaultValue = "1") int pageNo){
         return productService.getProducts(pageNo);
+    }
+
+    @GetMapping("/{code}")
+    ResponseEntity<ProductDTO> getProductByCode(@PathVariable String code) {
+        log.info("Fetching product for code: {}", code);
+        return productService
+                .getProductByCode(code)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> ProductNotFoundException.forCode(code));
     }
 }
