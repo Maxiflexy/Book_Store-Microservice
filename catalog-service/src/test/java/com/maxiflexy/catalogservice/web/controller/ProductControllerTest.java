@@ -32,4 +32,22 @@ public class ProductControllerTest extends AbstractIntegrationTest {
                 .body("hasPrevious", is(false));
     }
 
+    @Test
+    void shouldGetProductByCode() {
+        ProductDTO product = given().contentType(ContentType.JSON)
+                .when()
+                .get("/api/products/{code}", "P100")
+                .then()
+                .statusCode(200)
+                .assertThat()
+                .extract()
+                .body()
+                .as(ProductDTO.class);
+
+        assertThat(product.code()).isEqualTo("P100");
+        assertThat(product.name()).isEqualTo("The Hunger Games");
+        assertThat(product.description()).isEqualTo("Winning will make you famous. Losing means certain death...");
+        assertThat(product.price()).isEqualTo(new BigDecimal("34.0"));
+    }
+
 }
