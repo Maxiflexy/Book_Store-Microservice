@@ -1,0 +1,70 @@
+name: 'book-store-application'
+
+services:
+
+  catalog-db:
+    image: postgres:17-alpine
+    container_name: catalog-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "15432:5432"
+    volumes:
+      - catalog-data:/var/lib/postgresql/data
+    networks:
+      - bookstore-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  orders-db:
+    image: postgres:17-alpine
+    container_name: orders-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "25432:5432"
+    volumes:
+      - orders-data:/var/lib/postgresql/data
+    networks:
+      - bookstore-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  bookstore-rabbitmq:
+    image: rabbitmq:4.0.5-management
+    container_name: bookstore-rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - bookstore-network
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 30s
+      timeout: 30s
+      retries: 10
+
+
+volumes:
+  catalog-data:
+  orders-data:
+  rabbitmq-data:
+
+networks:
+  bookstore-network:
+    driver: bridge

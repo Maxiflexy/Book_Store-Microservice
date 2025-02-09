@@ -4,6 +4,10 @@
 WORKING_DIR="deployment/docker-compose"
 
 echo "Stopping all services..."
-docker compose -f $WORKING_DIR/docker-compose.yml down
+#docker compose -f $WORKING_DIR/docker-compose.apps.yml down
+
+#sleep 20
+
+docker compose -f $WORKING_DIR/docker-compose.databases.yml down
 
 echo "All services have been stopped successfully!"
