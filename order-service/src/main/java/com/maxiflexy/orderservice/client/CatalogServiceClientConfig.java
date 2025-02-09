@@ -24,11 +24,4 @@ public class CatalogServiceClientConfig {
                 .requestFactory(requestFactory)
                 .build();
     }
-
-//    @Bean
-//    RestClient restClient(ApplicationProperties properties){
-//        return RestClient.builder()
-//                .baseUrl(properties.catalogServiceUrl())
-//                .build();
-//    }
 }
