@@ -7,7 +7,7 @@ WORKING_DIR="deployment/docker-compose"
 set -e  # Exit immediately if a command exits with a non-zero status
 
 echo "🚀 Starting database containers..."
-docker compose -f $WORKING_DIR/docker-compose.databases.yml up -d
+docker compose -f $WORKING_DIR/docker-compose.databases-infra.yml up -d
 
 echo "🛠 Checking database health..."
 # Loop until both catalog-db and orders-db are healthy

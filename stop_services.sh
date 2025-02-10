@@ -8,6 +8,6 @@ echo "Stopping all services..."
 
 #sleep 20
 
-docker compose -f $WORKING_DIR/docker-compose.databases.yml down
+docker compose -f $WORKING_DIR/docker-compose.databases-infra.yml down
 
 echo "All services have been stopped successfully!"

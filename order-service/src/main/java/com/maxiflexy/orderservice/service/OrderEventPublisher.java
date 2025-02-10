@@ -18,19 +18,19 @@ class OrderEventPublisher {
 
 
     public void publish(OrderCreatedEvent event) {
-        this.send("new-orders-key", event);
+        this.send(properties.newOrdersRoutingKey(), event);
     }
 
     public void publish(OrderDeliveredEvent event) {
-        this.send("delivered-orders-key", event);
+        this.send(properties.deliveredOrdersRoutingKey(), event);
     }
 
     public void publish(OrderCancelledEvent event) {
-        this.send("cancelled-orders-key", event);
+        this.send(properties.cancelledOrdersRoutingKey(), event);
     }
 
     public void publish(OrderErrorEvent event) {
-        this.send("error-orders-key", event);
+        this.send(properties.errorOrdersRoutingKey(), event);
     }
 
     private void send(String routingKey, Object payload) {

@@ -59,11 +59,35 @@ services:
       timeout: 30s
       retries: 10
 
+  notifications-db:
+    image: postgres:17-alpine
+    container_name: notifications-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "35432:5432"
+    volumes:
+      - notification-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: mailhog
+    ports:
+      - "1025:1025" #Actual PORT
+      - "8025:8025" #GUI PORT
 
 volumes:
   catalog-data:
   orders-data:
   rabbitmq-data:
+  notification-data:
 
 networks:
   bookstore-network:

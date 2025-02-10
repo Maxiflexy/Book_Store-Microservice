@@ -1,1 +1,13 @@
 to run spring command to build docker image :  ./mvnw spring-boot:build-image -DskipTests
+
+Check Available Java Versions : /usr/libexec/java_home -V
+Set Java 21 as Default : export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+confirm : java -version
+
+If you want this to be permanent, : echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 21)' >> ~/.zshrc
+                                    source ~/.zshrc
+
+
+To Switch Back to Java 17 Later : export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 17)' >> ~/.zshrc
+source ~/.zshrc

@@ -1,10 +1,10 @@
-package com.maxiflexy.orderservice.config;
+package com.maxiflexy.notificationservivce.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "orders")
+@ConfigurationProperties(prefix = "notifications")
 public record ApplicationProperties(
-        String catalogServiceUrl,
+        String supportEmail,
         String orderEventsExchange,
         String newOrdersQueue,
         String newOrdersRoutingKey,
