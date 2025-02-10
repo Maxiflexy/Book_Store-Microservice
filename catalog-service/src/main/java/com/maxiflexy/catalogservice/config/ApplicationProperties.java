@@ -1,4 +1,4 @@
-package com.maxiflexy.catalogservice;
+package com.maxiflexy.catalogservice.config;
 
 import jakarta.validation.constraints.Min;
 import org.springframework.boot.context.properties.ConfigurationProperties;
