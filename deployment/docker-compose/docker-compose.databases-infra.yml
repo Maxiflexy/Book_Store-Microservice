@@ -70,6 +70,8 @@ services:
       - "35432:5432"
     volumes:
       - notification-data:/var/lib/postgresql/data
+    networks:
+      - bookstore-network
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 10s
@@ -82,12 +84,32 @@ services:
     ports:
       - "1025:1025" #Actual PORT
       - "8025:8025" #GUI PORT
+    networks:
+      - bookstore-network
+
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.2
+    command: [ 'start-dev', '--import-realm', '--http-port=9191' ]
+    container_name: keycloak
+    hostname: keycloak
+    volumes:
+      - ./realm-config:/opt/keycloak/data/import
+      - keycloak-data:/opt/keycloak/data
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin1234
+    ports:
+      - "9191:9191"
+    networks:
+      - bookstore-network
 
 volumes:
   catalog-data:
   orders-data:
   rabbitmq-data:
   notification-data:
+  keycloak-data:
 
 networks:
   bookstore-network:
