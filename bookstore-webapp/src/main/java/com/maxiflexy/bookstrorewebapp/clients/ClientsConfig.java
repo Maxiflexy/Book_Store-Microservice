@@ -36,6 +36,7 @@ class ClientsConfig {
 //        return factory;
 //    }
 
+
     @Bean
     CatalogServiceClient catalogServiceClient(RestClient.Builder builder) {
         RestClient restClient = builder.build();
